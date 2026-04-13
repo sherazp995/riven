@@ -1,0 +1,19 @@
+def describe(a: Int, b: Int) -> String
+  match a
+    0 -> match b
+      0 -> String.from("both zero")
+      _ -> String.from("a zero")
+    end
+    _ -> match b
+      0 -> String.from("b zero")
+      _ -> String.from("neither zero")
+    end
+  end
+end
+
+def main
+  puts "#{describe(0, 0)}"
+  puts "#{describe(0, 5)}"
+  puts "#{describe(5, 0)}"
+  puts "#{describe(5, 5)}"
+end

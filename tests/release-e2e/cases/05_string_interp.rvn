@@ -1,0 +1,11 @@
+def double(x: Int) -> Int
+  x * 2
+end
+
+def main
+  let n = 7
+  let f: Float = 1.5
+  puts "n=#{n} f=#{f} d=#{double(n)}"
+  puts "sum=#{n + 3}"
+  puts "just #{n}"
+end

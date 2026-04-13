@@ -1,0 +1,6 @@
+def main
+  let a = 1.0e3
+  let b = 2.5e-2
+  puts "#{a}"
+  puts "#{b}"
+end

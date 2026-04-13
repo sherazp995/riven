@@ -1,0 +1,53 @@
+{
+  "name": "riven",
+  "displayName": "Riven",
+  "description": "Language support for Riven",
+  "version": "0.0.1",
+  "publisher": "riven",
+  "engines": { "vscode": "^1.80.0" },
+  "categories": ["Programming Languages"],
+  "activationEvents": ["onLanguage:riven"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [{
+      "id": "riven",
+      "aliases": ["Riven", "riven"],
+      "extensions": [".riven", ".rvn"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "riven",
+      "scopeName": "source.riven",
+      "path": "./syntaxes/riven.tmLanguage.json"
+    }],
+    "configuration": {
+      "title": "Riven",
+      "properties": {
+        "riven.server.path": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to the riven-lsp binary. If empty, falls back to 'riven-lsp' on PATH."
+        },
+        "riven.trace.server": {
+          "type": "string",
+          "enum": ["off", "messages", "verbose"],
+          "default": "off",
+          "description": "Trace LSP communication with the server."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.3.0"
+  }
+}

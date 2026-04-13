@@ -1,0 +1,143 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag (e.g. v0.1.0)"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: x86_64-unknown-linux-gnu
+            os: ubuntu-latest
+          - target: aarch64-unknown-linux-gnu
+            os: ubuntu-latest
+            cross: true
+          - target: x86_64-apple-darwin
+            os: macos-14
+          - target: aarch64-apple-darwin
+            os: macos-14
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve tag
+        id: tag
+        shell: bash
+        run: |
+          if [ -n "${{ github.event.inputs.tag }}" ]; then
+            echo "tag=${{ github.event.inputs.tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install cross (Linux aarch64 only)
+        if: matrix.cross
+        run: cargo install cross --locked
+
+      - name: Run installed-binary tests (native only)
+        # Skip on cross builds — we can't execute aarch64 binaries on an
+        # x86_64 runner. Other native matrix entries cover the same code
+        # paths (find_runtime_c, pkg-manager, REPL).
+        if: matrix.cross != true
+        shell: bash
+        run: |
+          cargo test --release --target ${{ matrix.target }} \
+            -p rivenc   --test installed_binary \
+            -p riven-cli --test installed_pkg_manager \
+            -p riven-repl --test installed_repl
+
+      - name: Build release binaries
+        shell: bash
+        run: |
+          if [ "${{ matrix.cross }}" = "true" ]; then
+            cross build --release --target ${{ matrix.target }} \
+              -p riven-cli -p rivenc -p riven-lsp -p riven-repl
+          else
+            cargo build --release --target ${{ matrix.target }} \
+              -p riven-cli -p rivenc -p riven-lsp -p riven-repl
+          fi
+
+      - name: Stage artifacts
+        shell: bash
+        run: |
+          TAG="${{ steps.tag.outputs.tag }}"
+          TARGET="${{ matrix.target }}"
+          NAME="riven-${TAG}-${TARGET}"
+          STAGE="dist/${NAME}"
+          mkdir -p "${STAGE}/bin"
+
+          BIN_DIR="target/${TARGET}/release"
+          for bin in riven rivenc riven-lsp riven-repl; do
+            if [ -f "${BIN_DIR}/${bin}" ]; then
+              cp "${BIN_DIR}/${bin}" "${STAGE}/bin/${bin}"
+              chmod +x "${STAGE}/bin/${bin}"
+            fi
+          done
+
+          cp README.md LICENSE* "${STAGE}/" 2>/dev/null || true
+
+          # Include runtime C file so users with LLVM/Cranelift can link against it.
+          mkdir -p "${STAGE}/lib"
+          cp crates/riven-core/runtime/runtime.c "${STAGE}/lib/runtime.c"
+
+          tar -C dist -czf "dist/${NAME}.tar.gz" "${NAME}"
+          (cd dist && shasum -a 256 "${NAME}.tar.gz" > "${NAME}.tar.gz.sha256")
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: riven-${{ matrix.target }}
+          path: dist/riven-*.tar.gz*
+
+  release:
+    name: Publish release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Resolve tag
+        id: tag
+        shell: bash
+        run: |
+          if [ -n "${{ github.event.inputs.tag }}" ]; then
+            echo "tag=${{ github.event.inputs.tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: Riven ${{ steps.tag.outputs.tag }}
+          generate_release_notes: true
+          files: |
+            dist/riven-*.tar.gz
+            dist/riven-*.tar.gz.sha256
+            install.sh

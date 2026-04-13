@@ -1,0 +1,5 @@
+def main
+  let t = (1, 2)
+  let (a, b) = t
+  puts "#{a + b}"
+end

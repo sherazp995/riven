@@ -1,0 +1,8 @@
+#= outer comment
+  #= inner nested comment =#
+  still outer
+=#
+
+def main
+  puts "ok"
+end

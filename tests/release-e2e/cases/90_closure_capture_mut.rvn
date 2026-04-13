@@ -1,0 +1,8 @@
+def main
+  let mut count = 0
+  let mut bump = { || count += 1 }
+  bump.()
+  bump.()
+  bump.()
+  puts "#{count}"
+end

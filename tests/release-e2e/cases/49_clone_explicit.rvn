@@ -1,0 +1,6 @@
+def main
+  let original = String.from("hello")
+  let copy = original.clone
+  puts "#{original}"
+  puts "#{copy}"
+end

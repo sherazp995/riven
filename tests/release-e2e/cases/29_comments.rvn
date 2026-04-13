@@ -1,0 +1,15 @@
+# Line comment at top
+## Doc comment: prints a greeting
+def greet -> String
+  # inline comment
+  "hi"
+end
+
+#= Block comment
+   spanning multiple lines
+=#
+
+def main
+  puts greet  # trailing comment
+  puts "done"
+end

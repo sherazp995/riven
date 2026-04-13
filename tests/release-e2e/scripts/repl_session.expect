@@ -1,0 +1,28 @@
+Available commands:
+:help, :h       Show this help message
+:quit, :exit, :q  Exit the REPL
+:reset          Clear all state (variables, definitions, types)
+:type <expr>    Show the type of an expression without evaluating it
+=> 3 : Int
+=> 42 : Int
+=> 7 : Int
+=> 25 : Int
+=> 2 : Int
+=> 4 : Float
+=> 6.28 : Float
+=> "hi!" : String
+=> false : Bool
+=> true : Bool
+=> false : Bool
+Int
+Float
+&str
+Bool
+Char
+=> 10 : Int
+=> 10 : Int
+=> 15 : Int
+=> 15 : Int
+=> square : Fn(n: Int) -> Int
+=> 49 : Int
+Fn(n: Int) -> Int

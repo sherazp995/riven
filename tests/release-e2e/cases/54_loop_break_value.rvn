@@ -1,0 +1,6 @@
+def main
+  let v = loop
+    break 42
+  end
+  puts "#{v}"
+end

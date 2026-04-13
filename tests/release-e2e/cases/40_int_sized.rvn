@@ -1,0 +1,6 @@
+def main
+  let x: Int32 = 42i32
+  let y: Int64 = 100i64
+  puts "#{x}"
+  puts "#{y}"
+end

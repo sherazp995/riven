@@ -1,0 +1,4 @@
+def main
+  let m = "line1\nline2"
+  puts "#{m}"
+end

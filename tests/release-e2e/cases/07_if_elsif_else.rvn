@@ -1,0 +1,15 @@
+def classify(n: Int) -> String
+  if n > 0
+    "positive"
+  elsif n < 0
+    "negative"
+  else
+    "zero"
+  end
+end
+
+def main
+  puts classify(5)
+  puts classify(-3)
+  puts classify(0)
+end

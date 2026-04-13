@@ -1,0 +1,10 @@
+pub class Client
+  @host: String
+
+  def new(@host: String) -> Client
+  end
+
+  pub def get(path: String) -> String
+    @host + path
+  end
+end

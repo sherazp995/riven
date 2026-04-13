@@ -1,0 +1,8 @@
+def identity[T](x: T) -> T
+  x
+end
+
+def main
+  let n = identity(42)
+  puts "#{n}"
+end
