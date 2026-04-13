@@ -1,0 +1,10 @@
+def main
+  let h = 0xFF
+  let b = 0b1010
+  let o = 0o777
+  let u = 1_000_000
+  puts "#{h}"
+  puts "#{b}"
+  puts "#{o}"
+  puts "#{u}"
+end

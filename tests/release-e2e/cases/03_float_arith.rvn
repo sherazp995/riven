@@ -1,0 +1,12 @@
+def main
+  let f: Float = 3.0
+  let g: Float = 2.0
+  let s = f + g
+  let d = f - g
+  let m = f * g
+  let q = f / g
+  puts "sum=#{s}"
+  puts "diff=#{d}"
+  puts "prod=#{m}"
+  puts "quot=#{q}"
+end

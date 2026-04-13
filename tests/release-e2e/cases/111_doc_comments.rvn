@@ -1,0 +1,12 @@
+## Returns a greeting.
+##
+## Produces a friendly string with the given name.
+def greet(name: &str) -> String
+  "hi #{name}"
+end
+
+def main
+  let g = greet("world")
+  puts "#{g}"
+  puts "ok"
+end

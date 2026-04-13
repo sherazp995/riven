@@ -1,0 +1,8 @@
+def add(a: Int, b: Int) -> Int
+  a + b
+end
+
+def main
+  let result = add(10, 20)
+  puts "#{result}"
+end

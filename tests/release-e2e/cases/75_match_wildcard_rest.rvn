@@ -1,0 +1,14 @@
+enum User
+  Person(name: String, age: Int, city: String)
+end
+
+def just_name(u: User) -> String
+  match u
+    User.Person(name, ..) -> name
+  end
+end
+
+def main
+  let u = User.Person(name: String.from("Alice"), age: 30, city: String.from("NYC"))
+  puts "#{just_name(u)}"
+end

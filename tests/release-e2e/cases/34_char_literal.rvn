@@ -1,0 +1,4 @@
+def main
+  let c = 'R'
+  puts "#{c}"
+end

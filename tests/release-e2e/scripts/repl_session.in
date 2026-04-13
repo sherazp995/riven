@@ -1,0 +1,29 @@
+:help
+1 + 2
+7 * 6
+10 - 3
+100 / 4
+17 % 5
+1.5 + 2.5
+3.14 * 2.0
+"hi" + "!"
+true && false
+true || false
+!true
+:type 42
+:type 3.14
+:type "hi"
+:type true
+:type 'R'
+let x = 10
+x
+let y = x + 5
+y
+def square(n: Int) -> Int
+  n * n
+end
+square(7)
+:type square
+:reset
+:type square
+:quit

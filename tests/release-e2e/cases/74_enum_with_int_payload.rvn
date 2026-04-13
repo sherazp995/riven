@@ -1,0 +1,18 @@
+enum Shape
+  Rect(w: Int, h: Int)
+  Square(side: Int)
+end
+
+def area(s: Shape) -> Int
+  match s
+    Shape.Rect(w, h)  -> w * h
+    Shape.Square(sd)  -> sd * sd
+  end
+end
+
+def main
+  let r = Shape.Rect(w: 3, h: 4)
+  let sq = Shape.Square(side: 5)
+  puts "#{area(r)}"
+  puts "#{area(sq)}"
+end

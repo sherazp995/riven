@@ -1,0 +1,20 @@
+def factorial(n: Int) -> Int
+  if n <= 1
+    1
+  else
+    n * factorial(n - 1)
+  end
+end
+
+def fib(n: Int) -> Int
+  if n < 2
+    n
+  else
+    fib(n - 1) + fib(n - 2)
+  end
+end
+
+def main
+  puts "#{factorial(5)}"
+  puts "#{fib(10)}"
+end

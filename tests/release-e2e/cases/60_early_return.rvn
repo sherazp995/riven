@@ -1,0 +1,11 @@
+def check(n: Int) -> Int
+  if n < 0
+    return -1
+  end
+  n * 2
+end
+
+def main
+  puts "#{check(5)}"
+  puts "#{check(-3)}"
+end

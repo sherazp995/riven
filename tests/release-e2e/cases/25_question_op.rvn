@@ -1,0 +1,24 @@
+def checked(n: Int) -> Result[Int, String]
+  if n < 0
+    Err(String.from("negative"))
+  else
+    Ok(n + 1)
+  end
+end
+
+def chain(n: Int) -> Result[Int, String]
+  let a = checked(n)?
+  let b = checked(a)?
+  Ok(b)
+end
+
+def main
+  match chain(5)
+    Ok(v)  -> puts "ok #{v}"
+    Err(e) -> puts "err #{e}"
+  end
+  match chain(-1)
+    Ok(v)  -> puts "ok #{v}"
+    Err(e) -> puts "err #{e}"
+  end
+end

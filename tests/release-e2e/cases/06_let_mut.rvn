@@ -1,0 +1,8 @@
+def main
+  let x = 10
+  let mut y = 5
+  y = y + 1
+  y += 3
+  puts "#{x}"
+  puts "#{y}"
+end

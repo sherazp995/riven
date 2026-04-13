@@ -1,0 +1,7 @@
+# fmt: off
+def   main
+    let    x   =   1+2
+    puts    "#{x}"
+    puts   "ok"
+end
+# fmt: on

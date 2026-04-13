@@ -1,0 +1,6 @@
+def main
+  let x: UInt8 = 255u8
+  let y: UInt16 = 1000u16
+  puts "#{x}"
+  puts "#{y}"
+end

@@ -1,0 +1,18 @@
+def divide(a: Int, b: Int) -> Result[Int, String]
+  if b == 0
+    Err(String.from("divide by zero"))
+  else
+    Ok(a / b)
+  end
+end
+
+def main
+  match divide(10, 2)
+    Ok(v)  -> puts "ok #{v}"
+    Err(e) -> puts "err #{e}"
+  end
+  match divide(10, 0)
+    Ok(v)  -> puts "ok #{v}"
+    Err(e) -> puts "err #{e}"
+  end
+end

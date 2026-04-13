@@ -1,0 +1,8 @@
+# String interpolation test
+
+def main
+  puts "Creating tasks..."
+  let x = 42
+  puts "The answer is #{x}"
+  puts "Done"
+end

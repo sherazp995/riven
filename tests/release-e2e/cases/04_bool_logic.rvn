@@ -1,0 +1,29 @@
+def main
+  let a = true
+  let b = false
+  if a && !b
+    puts "true"
+  else
+    puts "false"
+  end
+  if a || b
+    puts "true"
+  else
+    puts "false"
+  end
+  if 3 < 5 && 5 < 10
+    puts "true"
+  else
+    puts "false"
+  end
+  if !a
+    puts "true"
+  else
+    puts "false"
+  end
+  if 5 == 5 && 5 != 6
+    puts "true"
+  else
+    puts "false"
+  end
+end

@@ -1,0 +1,7 @@
+def main
+  let data = String.from("hello")
+  let r1 = &data
+  let r2 = &data
+  puts "#{r1}"
+  puts "#{r2}"
+end

@@ -1,0 +1,11 @@
+/target
+crates/*/target/
+
+CLAUDE.md
+
+# release-e2e harness per-run artifacts
+tests/release-e2e/results/
+
+# Per-test scratch output from integration tests
+/tmp/
+/crates/*/tmp/
