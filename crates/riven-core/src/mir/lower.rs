@@ -927,14 +927,14 @@ impl<'a> Lowerer<'a> {
 
                 // Handle .new() constructor calls: allocate + call init
                 if method_name == "new" {
-                    // For built-in types (Vec, Hash, Set), call the runtime
+                    // For built-in types (Vec, HashMap, Set), call the runtime
                     // constructor directly instead of Alloc + init.
                     let base_type = if let Some(pos) = type_name.find('[') {
                         &type_name[..pos]
                     } else {
                         type_name.as_str()
                     };
-                    if matches!(base_type, "Vec" | "Hash" | "Set") {
+                    if matches!(base_type, "Vec" | "HashMap" | "Set") {
                         let obj = self.new_temp(expr.ty.clone());
                         // Emit Call to runtime constructor (e.g., Vec_new)
                         self.emit(MirInst::Call {
@@ -1822,7 +1822,7 @@ impl<'a> Lowerer<'a> {
                     } else {
                         type_name.as_str()
                     };
-                    if matches!(base_type, "Vec" | "Hash" | "Set") {
+                    if matches!(base_type, "Vec" | "HashMap" | "Set") {
                         let obj = self.new_temp(expr.ty.clone());
                         self.emit(MirInst::Call {
                             dest: Some(obj),
@@ -4684,7 +4684,7 @@ fn is_builtin_static_method(type_name: &str, method_name: &str) -> bool {
     match base_type {
         "String" => matches!(method_name, "from"),
         "Vec" => matches!(method_name, "new"),
-        "Hash" => matches!(method_name, "new"),
+        "HashMap" => matches!(method_name, "new"),
         "Set" => matches!(method_name, "new"),
         _ => false,
     }

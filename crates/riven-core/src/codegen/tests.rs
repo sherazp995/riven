@@ -142,7 +142,7 @@ mod tests {
     #[test]
     fn hash_layout() {
         let layout = layout_of(
-            &Ty::Hash(Box::new(Ty::String), Box::new(Ty::Int)),
+            &Ty::HashMap(Box::new(Ty::String), Box::new(Ty::Int)),
             &symbols(),
         );
         assert_eq!(layout.size, 48);

@@ -279,8 +279,8 @@ pub fn layout_of(ty: &Ty, symbols: &SymbolTable) -> TypeLayout {
         // ── Collections ─────────────────────────────────────────────────────
         // Vec[T] — (ptr, len, cap) = 24 bytes, align 8
         Ty::Vec(_) => TypeLayout::primitive(24, 8),
-        // Hash[K,V] and Set[T] — 48 bytes (HashMap/HashSet header), align 8
-        Ty::Hash(_, _) | Ty::Set(_) => TypeLayout::primitive(48, 8),
+        // HashMap[K,V] and Set[T] — 48 bytes (HashMap/HashSet header), align 8
+        Ty::HashMap(_, _) | Ty::Set(_) => TypeLayout::primitive(48, 8),
 
         // ── Option[T] ───────────────────────────────────────────────────────
         Ty::Option(inner) => {

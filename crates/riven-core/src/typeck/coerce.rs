@@ -105,7 +105,7 @@ pub fn try_coerce(
             }
         }
 
-        // Vec, Hash, Set — invariant (no coercion)
+        // Vec, HashMap, Set — invariant (no coercion)
         // &mut T — invariant (no coercion to &mut U)
 
         // No coercion possible

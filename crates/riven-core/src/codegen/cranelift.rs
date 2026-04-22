@@ -1166,7 +1166,7 @@ fn ty_to_cranelift(ty: &Ty) -> Option<Type> {
         Ty::String
         | Ty::Str
         | Ty::Vec(_)
-        | Ty::Hash(_, _)
+        | Ty::HashMap(_, _)
         | Ty::Set(_)
         | Ty::Ref(_)
         | Ty::RefMut(_)
@@ -1262,7 +1262,7 @@ fn simple_type_size(ty: &Ty) -> usize {
         Ty::String => 24,
         Ty::Str => 16,
         Ty::Vec(_) => 24,
-        Ty::Hash(_, _) | Ty::Set(_) => 48,
+        Ty::HashMap(_, _) | Ty::Set(_) => 48,
         Ty::Ref(_) | Ty::RefMut(_) | Ty::RefLifetime(_, _) | Ty::RefMutLifetime(_, _)
         | Ty::RawPtr(_) | Ty::RawPtrMut(_) | Ty::RawPtrVoid | Ty::RawPtrMutVoid => 8,
         Ty::Unit | Ty::Never => 0,

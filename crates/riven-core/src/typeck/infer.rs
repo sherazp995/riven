@@ -1192,7 +1192,7 @@ impl<'a> InferenceEngine<'a> {
         match obj_ty {
             Ty::Vec(elem) => *elem.clone(),
             Ty::Array(elem, _) => *elem.clone(),
-            Ty::Hash(_, v) => Ty::Option(v.clone()),
+            Ty::HashMap(_, v) => Ty::Option(v.clone()),
             Ty::Tuple(elems) => {
                 // Dynamic index — can't know at compile time
                 if elems.is_empty() { Ty::Error } else { elems[0].clone() }

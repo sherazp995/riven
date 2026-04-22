@@ -68,7 +68,7 @@ impl TypeContext {
             Ty::Tuple(elems) => elems.iter().any(|e| self.occurs_in(id, e)),
             Ty::Array(elem, _) => self.occurs_in(id, elem),
             Ty::Vec(elem) | Ty::Set(elem) | Ty::Option(elem) => self.occurs_in(id, elem),
-            Ty::Hash(k, v) | Ty::Result(k, v) => {
+            Ty::HashMap(k, v) | Ty::Result(k, v) => {
                 self.occurs_in(id, k) || self.occurs_in(id, v)
             }
             Ty::Ref(inner) | Ty::RefMut(inner) => self.occurs_in(id, inner),
@@ -110,8 +110,8 @@ impl TypeContext {
                 Ty::Array(Box::new(self.resolve(elem)), *size)
             }
             Ty::Vec(elem) => Ty::Vec(Box::new(self.resolve(elem))),
-            Ty::Hash(k, v) => {
-                Ty::Hash(Box::new(self.resolve(k)), Box::new(self.resolve(v)))
+            Ty::HashMap(k, v) => {
+                Ty::HashMap(Box::new(self.resolve(k)), Box::new(self.resolve(v)))
             }
             Ty::Set(elem) => Ty::Set(Box::new(self.resolve(elem))),
             Ty::Option(inner) => Ty::Option(Box::new(self.resolve(inner))),
@@ -163,7 +163,7 @@ impl TypeContext {
             Ty::Tuple(elems) => elems.iter().all(|e| self.is_fully_resolved(e)),
             Ty::Array(elem, _) => self.is_fully_resolved(elem),
             Ty::Vec(elem) | Ty::Set(elem) | Ty::Option(elem) => self.is_fully_resolved(elem),
-            Ty::Hash(k, v) | Ty::Result(k, v) => {
+            Ty::HashMap(k, v) | Ty::Result(k, v) => {
                 self.is_fully_resolved(k) && self.is_fully_resolved(v)
             }
             Ty::Ref(inner) | Ty::RefMut(inner) => self.is_fully_resolved(inner),

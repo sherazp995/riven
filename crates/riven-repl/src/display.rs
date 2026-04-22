@@ -113,7 +113,7 @@ pub fn format_type(ty: &Ty) -> String {
         Ty::String => "String".to_string(),
         Ty::Str => "&str".to_string(),
         Ty::Vec(inner) => format!("Vec[{}]", format_type(inner)),
-        Ty::Hash(k, v) => format!("Hash[{}, {}]", format_type(k), format_type(v)),
+        Ty::HashMap(k, v) => format!("HashMap[{}, {}]", format_type(k), format_type(v)),
         Ty::Set(inner) => format!("Set[{}]", format_type(inner)),
         Ty::Option(inner) => format!("Option[{}]", format_type(inner)),
         Ty::Result(ok, err) => format!("Result[{}, {}]", format_type(ok), format_type(err)),

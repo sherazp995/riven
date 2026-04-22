@@ -73,8 +73,8 @@ pub enum Ty {
     Array(Box<Ty>, usize),
     /// `Vec[T]` — dynamic, heap-allocated
     Vec(Box<Ty>),
-    /// `Hash[K, V]` — key-value map
-    Hash(Box<Ty>, Box<Ty>),
+    /// `HashMap[K, V]` — key-value map
+    HashMap(Box<Ty>, Box<Ty>),
     /// `Set[T]`
     Set(Box<Ty>),
 
@@ -380,7 +380,7 @@ impl fmt::Display for Ty {
             }
             Ty::Array(elem, size) => write!(f, "[{}; {}]", elem, size),
             Ty::Vec(elem) => write!(f, "Vec[{}]", elem),
-            Ty::Hash(k, v) => write!(f, "Hash[{}, {}]", k, v),
+            Ty::HashMap(k, v) => write!(f, "HashMap[{}, {}]", k, v),
             Ty::Set(elem) => write!(f, "Set[{}]", elem),
             Ty::Option(inner) => write!(f, "Option[{}]", inner),
             Ty::Result(ok, err) => write!(f, "Result[{}, {}]", ok, err),

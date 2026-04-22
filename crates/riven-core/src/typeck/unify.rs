@@ -87,11 +87,11 @@ pub fn unify(a: &Ty, b: &Ty, ctx: &mut TypeContext, span: &Span) -> Result<Ty, T
             Ok(Ty::Vec(Box::new(elem)))
         }
 
-        // Hash
-        (Ty::Hash(ak, av), Ty::Hash(bk, bv)) => {
+        // HashMap
+        (Ty::HashMap(ak, av), Ty::HashMap(bk, bv)) => {
             let k = unify(ak, bk, ctx, span)?;
             let v = unify(av, bv, ctx, span)?;
-            Ok(Ty::Hash(Box::new(k), Box::new(v)))
+            Ok(Ty::HashMap(Box::new(k), Box::new(v)))
         }
 
         // Set

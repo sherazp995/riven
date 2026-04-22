@@ -222,7 +222,7 @@ impl Resolver {
         // Register type constructors in the value scope so Vec.new, String.from, etc. resolve
         let type_constructors = [
             ("Vec", Ty::Vec(Box::new(Ty::TypeParam { name: "T".to_string(), bounds: vec![] }))),
-            ("Hash", Ty::Hash(
+            ("HashMap", Ty::HashMap(
                 Box::new(Ty::TypeParam { name: "K".to_string(), bounds: vec![] }),
                 Box::new(Ty::TypeParam { name: "V".to_string(), bounds: vec![] }),
             )),
@@ -2161,7 +2161,7 @@ impl Resolver {
                         } else {
                             (self.type_context.fresh_type_var(), self.type_context.fresh_type_var())
                         };
-                        Ty::Hash(Box::new(k), Box::new(v))
+                        Ty::HashMap(Box::new(k), Box::new(v))
                     }
                     "set" => {
                         let elem = if args_hir.is_empty() {
@@ -2877,11 +2877,11 @@ impl Resolver {
                     .unwrap_or_else(|| self.type_context.fresh_type_var());
                 return Ty::Vec(Box::new(elem));
             }
-            "Hash" => {
+            "HashMap" => {
                 let mut iter = generic_args.into_iter();
                 let k = iter.next().unwrap_or_else(|| self.type_context.fresh_type_var());
                 let v = iter.next().unwrap_or_else(|| self.type_context.fresh_type_var());
-                return Ty::Hash(Box::new(k), Box::new(v));
+                return Ty::HashMap(Box::new(k), Box::new(v));
             }
             "Set" => {
                 let elem = generic_args.into_iter().next()

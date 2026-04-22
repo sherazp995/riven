@@ -72,7 +72,7 @@ mod tests {
 
     #[test]
     fn hash_is_move() {
-        assert!(Ty::Hash(Box::new(Ty::String), Box::new(Ty::Int)).is_move());
+        assert!(Ty::HashMap(Box::new(Ty::String), Box::new(Ty::Int)).is_move());
     }
 
     #[test]
@@ -175,8 +175,8 @@ mod tests {
     fn display_composite() {
         assert_eq!(format!("{}", Ty::Vec(Box::new(Ty::Int))), "Vec[Int]");
         assert_eq!(
-            format!("{}", Ty::Hash(Box::new(Ty::String), Box::new(Ty::Int))),
-            "Hash[String, Int]"
+            format!("{}", Ty::HashMap(Box::new(Ty::String), Box::new(Ty::Int))),
+            "HashMap[String, Int]"
         );
         assert_eq!(format!("{}", Ty::Option(Box::new(Ty::Int))), "Option[Int]");
         assert_eq!(format!("{}", Ty::Tuple(vec![Ty::Int, Ty::Bool])), "(Int, Bool)");

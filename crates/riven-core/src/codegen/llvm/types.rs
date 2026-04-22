@@ -31,7 +31,7 @@ pub fn ty_to_llvm<'ctx>(ty: &Ty, context: &'ctx Context) -> Option<BasicTypeEnum
         Ty::String
         | Ty::Str
         | Ty::Vec(_)
-        | Ty::Hash(_, _)
+        | Ty::HashMap(_, _)
         | Ty::Set(_)
         | Ty::Ref(_)
         | Ty::RefMut(_)
